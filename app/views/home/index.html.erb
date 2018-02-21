@@ -2,8 +2,13 @@
 <p>Bem-vindo ao maior livro de receitas online</p>
 
 <%= link_to 'Enviar uma receita', new_recipe_path %>
+<br>
 <% @cuisines.each do |cuisine| %>
   <%= link_to cuisine.name, cuisine_path(cuisine.id) %>
+<% end %>
+<br>
+<% @recipe_types.each do |type| %>
+  <%= link_to type.name, recipe_type_path(type.id) %>
 <% end %>
 
 <% @recipes.each do |r| %>
