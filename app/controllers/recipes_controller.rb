@@ -16,16 +16,11 @@ class RecipesController < ApplicationController
 
     @recipe = Recipe.new(recipe_params)
 
-    #@recipe.title = params[:recipe][:title]
-    #@recipe.recipe_type = params[:recipe][:recipe_type]
-    #@recipe.cuisine = params[:recipe][:cuisine]
-    #@recipe.difficulty = params[:recipe][:difficulty]
-    #@recipe.cook_time = params[:recipe][:cook_time]
-    #@recipe.ingredients = params[:recipe][:ingredients]
-    #@recipe.method = params[:recipe][:method]
-
-    @recipe.save
-
-    redirect_to recipe_path(@recipe.id)
+    if @recipe.save
+      redirect_to @recipe
+    else
+      flash[:error] = "Você deve informar todos os dados da receita"
+      render :new
+    end
   end
 end

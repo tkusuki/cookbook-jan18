@@ -2,6 +2,7 @@ class CuisinesController < ApplicationController
   def show
     id = params[:id]
     @cuisine = Cuisine.find(id)
+    render :show
   end
 
   def new
@@ -9,12 +10,13 @@ class CuisinesController < ApplicationController
   end
 
   def create
+
     cuisine_params = params.require(:cuisine).permit(:name)
     @cuisine = Cuisine.new(cuisine_params)
 
-    if @cuisine.valid?
-      @cuisine.save
-      redirect_to cuisine_path(@cuisine.id)
+    if @cuisine.save
+      redirect_to @cuisine
+      #redirect_to cuisine_path(@cuisine.id)
     else
       render :new
     end
