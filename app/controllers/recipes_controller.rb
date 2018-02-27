@@ -1,7 +1,13 @@
 class RecipesController < ApplicationController
   def show
     id = params[:id]
-    @recipe = Recipe.find(id)
+    @recipe = Recipe.find_by(id: id)
+
+    # if unless @recipe
+    if @recipe.nil?
+      flash[:error] = 'Não foi possível acessar essa receita'
+      redirect_to root_path
+    end
   end
 
   def new
