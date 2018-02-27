@@ -1,0 +1,7 @@
+<%= form_for @cuisine do |form| %>
+  <div>
+    <%= form.label :name, 'Nome' %>
+    <%= form.text_field :name %>
+  </div>
+  <%= form.submit 'Enviar' %>
+<% end %>

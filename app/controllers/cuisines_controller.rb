@@ -21,4 +21,19 @@ class CuisinesController < ApplicationController
     end
     # redirect_to root_path
   end
+
+  def edit
+    id = params[:id]
+    @cuisine = Cuisine.find(id)
+  end
+
+  def update
+    id = params[:id]
+    @cuisine = Cuisine.find(id)
+    cuisine_params = params.require(:cuisine).permit(:name)
+
+    @cuisine.update(cuisine_params)
+    redirect_to @cuisine
+
+  end
 end
