@@ -1,9 +1,4 @@
 <h1>Cadastrar tipo de receitas</h1>
-<%= flash[:error] %>
-<%= form_for @recipe_type do |form| %>
-  <div>
-    <%= form.label :name, 'Nome' %>
-    <%= form.text_field :name %>
-  </div>
-  <%= form.submit 'Enviar' %>
-<% end %>
+<%= render partial: 'shared/error', locals: {object: @recipe_type} %>
+
+<%= render 'form' %>
