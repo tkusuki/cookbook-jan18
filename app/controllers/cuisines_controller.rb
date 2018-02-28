@@ -32,8 +32,10 @@ class CuisinesController < ApplicationController
     @cuisine = Cuisine.find(id)
     cuisine_params = params.require(:cuisine).permit(:name)
 
-    @cuisine.update(cuisine_params)
-    redirect_to @cuisine
-
+    if @cuisine.update(cuisine_params)
+      redirect_to @cuisine
+    else
+      render :edit
+    end
   end
 end
