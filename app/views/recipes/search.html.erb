@@ -1,18 +1,8 @@
 <h1>Resultado da busca por: <%= @search %></h1>
 <div id="search_results">
-<% if @recipes.any? %>
-  <% @recipes.each do |recipe| %>
-    <div class="recipe_details">
-      <h1><%= link_to recipe.title, recipe_path(recipe.id) %></h1>
-      <ul>
-        <li><%= recipe.recipe_type.name %></li>
-        <li><%= recipe.cuisine.name %></li>
-        <li><%= recipe.difficulty %></li>
-        <li><%= recipe.cook_time %> minutos</li>
-      </ul>
-    </div>
-  <% end %>
-<% else %>
+<% if @recipes.empty? %>
   <p>Nenhuma receita encontrada</p>
+<% else %>
+  <%= render partial: 'shared/recipes', locals: {recipes: @recipes} %>
 <% end %>
 </div>
