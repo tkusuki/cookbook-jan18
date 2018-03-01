@@ -2,7 +2,13 @@
 <p>Bem-vindo ao maior livro de receitas online</p>
 <p><%= flash[:remove] %></p>
 <p><%= flash[:error] %></p>
-
+<hr>
+<%= form_tag(search_recipes_path, method: "get") do %>
+  <%= label_tag(:search, "Buscar por:") %>
+  <%= text_field_tag(:search) %>
+  <%= submit_tag("Buscar") %>
+<% end %>
+<hr>
 <%= link_to 'Enviar uma receita', new_recipe_path %>
 <br>
 <% @cuisines.each do |cuisine| %>
@@ -12,6 +18,7 @@
 <% @recipe_types.each do |type| %>
   <%= link_to type.name, recipe_type_path(type.id) %>
 <% end %>
+<hr>
 
 <% @recipes.each do |r| %>
   <h1><%= link_to r.title, recipe_path(r.id) %></h1>

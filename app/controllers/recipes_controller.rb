@@ -17,11 +17,9 @@ class RecipesController < ApplicationController
   end
 
   def create
-
     recipe_params = params.require(:recipe).permit(:title, :recipe_type_id, :cuisine_id,
                                                   :cook_time, :ingredients, :method,
                                                   :difficulty)
-
     @recipe = Recipe.new(recipe_params)
 
     if @recipe.save
@@ -43,7 +41,6 @@ class RecipesController < ApplicationController
   def update
     id = params[:id]
     @recipe = Recipe.find(id)
-
     recipe_params = params.require(:recipe).permit(:title, :recipe_type_id, :cuisine_id,
                                                   :cook_time, :ingredients, :method,
                                                   :difficulty)
@@ -60,15 +57,15 @@ class RecipesController < ApplicationController
   def destroy
     id = params[:id]
     @recipe = Recipe.find(id)
-
     @recipe.destroy
     flash[:remove] = "Receita removida com sucesso"
     redirect_to root_path
 
   end
 
-
-  private
-
+  def search
+    @search = params[:search]
+    @recipes = Recipe.where("title LIKE ?", "%#{@search}%")
+  end
 
 end
