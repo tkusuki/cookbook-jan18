@@ -71,13 +71,45 @@ feature 'Visitor search for recipes' do
                           cook_time: 60,
                           ingredients: 'Farinha, açucar, cenoura',
                           method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
+
+    # simula a ação do usuário
     visit root_path
     fill_in 'Busca', with: 'Bolo'
     click_on 'Buscar'
 
+    # expectativas do usuário após a ação
     within("div#search_results") do
       expect(page).to have_css('h1', text: recipe.title)
       expect(page).to have_css('h1', text: recipe_choco.title)
     end
+  end
+
+  scenario 'and returns no results' do
+    # cria os dados necessários previamente
+    cuisine = Cuisine.create(name: 'Brasileira')
+    recipe_type = RecipeType.create(name: 'Sobremesa')
+    recipe = Recipe.create(title: 'Bolo de cenoura', recipe_type: recipe_type,
+                           cuisine: cuisine, difficulty: 'Médio',
+                           cook_time: 60,
+                           ingredients: 'Farinha, açucar, cenoura',
+                           method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
+
+    another_cuisine = Cuisine.create(name: 'Japonesa')
+    another_recipe_type = RecipeType.create(name: 'Entrada')
+    another_recipe = Recipe.create(title: 'Temaki', recipe_type: another_recipe_type,
+                           cuisine: another_cuisine, difficulty: 'Fácil',
+                           cook_time: 40,
+                           ingredients: 'Arroz, nori, salmão',
+                           method: 'Cozinhe o arroz, adicione o arroz e o salmão picado no nori e enrole em formato de cone')
+
+    # simula a ação do usuário
+    visit root_path
+    fill_in 'Busca', with: 'Feijoada'
+    click_on 'Buscar'
+
+    # expectativas do usuário após a ação
+    expect(page).to have_css('h1', text: 'Resultado da busca por: Feijoada')
+    expect(page).to have_content('Nenhuma receita encontrada')
+
   end
 end
