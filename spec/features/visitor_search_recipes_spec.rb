@@ -81,6 +81,7 @@ feature 'Visitor search for recipes' do
     within("div#search_results") do
       expect(page).to have_css('h1', text: recipe.title)
       expect(page).to have_css('h1', text: recipe_choco.title)
+      expect(page).to have_content('2 receitas encontradas')
     end
   end
 
@@ -110,6 +111,5 @@ feature 'Visitor search for recipes' do
     # expectativas do usuário após a ação
     expect(page).to have_css('h1', text: 'Resultado da busca por: Feijoada')
     expect(page).to have_content('Nenhuma receita encontrada')
-
   end
 end

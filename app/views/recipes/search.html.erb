@@ -3,6 +3,8 @@
 <% if @recipes.empty? %>
   <p>Nenhuma receita encontrada</p>
 <% else %>
-  <%= render partial: 'shared/recipes', locals: {recipes: @recipes} %>
+  <p><%= @recipes.count %> receitas encontradas</p>
+  <%= render @recipes %>
 <% end %>
 </div>
+<%= link_to 'Voltar', root_path %>

@@ -4,6 +4,8 @@
   <p>Nenhuma receita encontrada para este tipo de receitas</p>
 <% else %>
 
-  <%= render partial: 'shared/recipes', locals: {recipes: @recipe_type.recipes} %>
+  <% @recipe_type.recipes.each do |recipe| %>
+    <%= render recipe %>
+  <% end %>
 
 <% end %>
